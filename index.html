@@ -26,13 +26,17 @@
 		
 		<h1> CTD sample </h1>
 			
-		<textarea id="myTextArea" cols=100 rows=20></textarea>
+		<textarea id="myTextArea1" cols=100 rows=20></textarea>
+		<textarea id="myTextArea2" cols=100 rows=20></textarea>
+
+
 	</div>
 	
     <script>
 	  
-	async function getData() {
-		let url = 'https://swapi.dev/api/people/1';
+	async function getData(str) {
+		let url = 'https://swapi.dev/api/';
+		url += str;
 		
 		try {
 			let result = await fetch(url);
@@ -41,18 +45,20 @@
 			console.log(error);
 		}
 	}
-	
-	async function render() {
-		let myData = await getData();
 		
-		//can fetch API and output data to console, but need to fix display area
+	async function render() {
+		let myData = await getData("people/1");
+		
 		console.log(myData);
-		//alert(myData);
+		//alert(myData); 		//used for debugging and it helped a lot
 		
 		let JSONFormatted = JSON.stringify(myData, undefined, 4);
+		document.getElementById('myTextArea1').value = JSONFormatted;
 		
+		myData = await getData("people/2");
+		JSONFormatted = JSON.stringify(myData, undefined, 4);
+		document.getElementById('myTextArea2').value = JSONFormatted;
 		
-		document.getElementById('myTextArea').value = JSONFormatted;
 	
 	}
 
