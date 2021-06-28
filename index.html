@@ -22,11 +22,13 @@
 
   </style>
   <body>
-    
+	<div class="container">
 		
-	<textarea id="myTextArea" cols=100 rows=20></textarea>
-	<button onclick="prettyPrint()">Pretty Print</button>
-
+		<h1> CTD sample </h1>
+			
+		<textarea id="myTextArea" cols=100 rows=20></textarea>
+		<button onclick="prettyPrint()">Pretty Print</button>
+	</div>
 	
     <script>
 	  
@@ -46,7 +48,7 @@
 		let html = '';
 		
 		//can fetch API and output data to console, but need to fix display area
-		console.log(myData);
+		//console.log(myData);
 
 		let parseJSON = JSON.parse(myData);
 		
