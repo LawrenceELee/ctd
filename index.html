@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CTD sample</title>
+  </head>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+  </style>
+  <body>
+    
+	
+    <script>
+	  
+	async function getData() {
+		let url = 'https://swapi.dev/api/people/1';
+		
+		try {
+			let result = await fetch(url);
+			return await result.json();
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	
+	async function render() {
+		let myData = await getData();
+		let html = '';
+		
+
+		let container = document.querySelector('.container');
+		container.innerHTML = html;
+	}
+
+	render();
+
+		  
+    </script>
+  </body>
+</html>
