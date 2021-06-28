@@ -27,7 +27,6 @@
 		<h1> CTD sample </h1>
 			
 		<textarea id="myTextArea" cols=100 rows=20></textarea>
-		<button onclick="prettyPrint()">Pretty Print</button>
 	</div>
 	
     <script>
@@ -45,25 +44,17 @@
 	
 	async function render() {
 		let myData = await getData();
-		let html = '';
 		
 		//can fetch API and output data to console, but need to fix display area
-		//console.log(myData);
-
-		let parseJSON = JSON.parse(myData);
+		console.log(myData);
+		//alert(myData);
 		
-		let JSONFormatted = JSON.stringify(parseJSON, undefined, 4);
+		let JSONFormatted = JSON.stringify(myData, undefined, 4);
 		
 		
-		document.getElementById('myTextArea').innerHTML = JSONFormatted;
-		
-		let container = document.querySelector('.container');
-		container.innerHTML = html;
+		document.getElementById('myTextArea').value = JSONFormatted;
+	
 	}
-
-
-	function prettyPrint() {
-    }
 
 
 	render();
