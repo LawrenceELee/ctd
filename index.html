@@ -1,71 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CTD sample</title>
+    <style>
+		* {
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		}
+		.container {
+		  height: 100vh;
+		  display: flex;
+		  flex-direction: column;
+		  justify-content: center;
+		  align-items: center;
+		}
+
+	</style>
   </head>
   
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    .container {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-  </style>
   <body>
-	<div class="container">
-		
-		<h1> CTD sample </h1>
+    <div class="container">
+    <h1>CTD sample</h1>
+	<table id="myTable1"></table>
+    <textarea id="myTextArea1" cols="100" rows="20"></textarea> 
+    <textarea id="myTextArea2" cols="100" rows="20"></textarea></div>
+    
+	<script>      
+        async function getData(str) {
+			let url = "https://swapi.dev/api/";
+			url += str;
 			
-		<textarea id="myTextArea1" cols=100 rows=20></textarea>
-		<textarea id="myTextArea2" cols=100 rows=20></textarea>
+			try {
+					let result = await fetch(url);
+					return await result.json();
+			} catch (error) {
+					console.log(error);
+			}
+        }
+                
+        async function render() {
+			let myData = await getData("people/1");
+			
+			console.log(myData);
+			//alert(myData);                //used for debugging and it helped a lot
+			
+			let JSONFormatted = JSON.stringify(myData, undefined, 4);
+			document.getElementById("myTextArea1").value = JSONFormatted;
+			
+			myData = await getData("people/2");
+			JSONFormatted = JSON.stringify(myData, undefined, 4);
+			document.getElementById("myTextArea2").value = JSONFormatted;
 
-
-	</div>
+			// Find a <table> element with id="myTable1":
+			let table = document.getElementById("myTable1");
+			let row = table.insertRow(0);
+			
+			let person = row.insertCell(0);
+			let movie = row.insertCell(1);
+			
+			person.innerHTML = "TEST CELL1";
+			movie.innerHTML = "TEST CELL2";
 	
-    <script>
-	  
-	async function getData(str) {
-		let url = 'https://swapi.dev/api/';
-		url += str;
-		
-		try {
-			let result = await fetch(url);
-			return await result.json();
-		} catch (error) {
-			console.log(error);
-		}
-	}
-		
-	async function render() {
-		let myData = await getData("people/1");
-		
-		console.log(myData);
-		//alert(myData); 		//used for debugging and it helped a lot
-		
-		let JSONFormatted = JSON.stringify(myData, undefined, 4);
-		document.getElementById('myTextArea1').value = JSONFormatted;
-		
-		myData = await getData("people/2");
-		JSONFormatted = JSON.stringify(myData, undefined, 4);
-		document.getElementById('myTextArea2').value = JSONFormatted;
-		
-	
-	}
+        }
 
+		/*
+		//new way
+		// Find a <table> element with id="myTable1":
+		let table = document.getElementById("myTable1");
 
-	render();
+		// Create an empty <tr> element and add it to the 1st position of the table:
+		let row = table.insertRow(0);
 
-		  
-    </script>
+		//Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+		let cell1 = row.insertCell(0);
+		let cell2 = row.insertCell(1);
+
+		// Add some text to the new cells:
+		cell1.innerHTML = "NEW CELL1";
+		cell2.innerHTML = "NEW CELL2"; 
+		
+		//old way
+		$.each(data.person, function(i, person) {
+            let tblRow =    "<tr><td>" + person.revisiondate + 
+                            "</td><td>" + person.documentname + 
+                            "</td><td>" + person.department +
+                            "</td><td>" + person.description + 
+                            "</td><td><a target='_blank' href='"+ person.link.split('href=')[1]+"' >"+person.link.split('href=')[1]+"</a></td></tr>"
+            $(tblRow).appendTo("#userdata tbody");
+        });
+		*/
+
+        render();
+
+                  
+    
+	</script>
   </body>
 </html>
